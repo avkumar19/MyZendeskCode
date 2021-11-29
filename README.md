@@ -9,6 +9,7 @@ It's a Command line based Ticket Viewer system built using Zendesk service tool 
 * Display them in a list
 * Display individual ticket details 
 * Page through tickets when more than 25 are returned
+* Jump to specific page based on User Input (Page Range = 1:MaxPage)
 
 ## Getting Started
 
