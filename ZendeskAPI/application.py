@@ -63,15 +63,16 @@ class UserInterface():
         print('─ ' * 53)
         
         #Navigation Logic
-        PageNavigation = [0,1,2]
+        PageNavigation = [0,1,2,3]
         while CheckPrevPage or CheckNextPage :
-            SelectedNavigation = [PageNavigation[0]]
+            SelectedNavigation = [PageNavigation[0],PageNavigation[3]]
             if CheckPrevPage:
                 SelectedNavigation.append(PageNavigation[1])
                 print("Select 1 to Navigate to previous Page")
             if CheckNextPage:
                 SelectedNavigation.append(PageNavigation[2])
                 print("Select 2 to Navigate to next Page")
+            print("Select 3 to jump to specific Page")
             print("Select 0 to quit Navigation.")
             print('─ ' * 53)
             InputNav = InputUtils.ValidateInput(SelectedNavigation, "\nEnter a navigation option: ", "Please select a valid option.")
@@ -84,6 +85,10 @@ class UserInterface():
                 elif InputNav == PageNavigation[2]:
                     PageNo += 1
                     TicketsData, CheckPrevPage, CheckNextPage = self.ApiCaller.GetPageWiseTickets(PageNo)
+                elif InputNav == PageNavigation[3]:
+                    PageNo = InputUtils.IsValidPageNo("\nEnter Page No: ", TicketCnt, "Please select a valid Page No\n")
+                    TicketsData, CheckPrevPage, CheckNextPage = self.ApiCaller.GetPageWiseTickets(PageNo)
+
             except requests.exceptions.HTTPError as e:
                 print(e)
                 return returnCode[0]

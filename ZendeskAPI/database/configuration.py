@@ -1,5 +1,6 @@
 from typing import List
 import json
+import math
 
 returnCode = ["FAILURE","SUCCESS"]
 
@@ -32,6 +33,23 @@ class StringUtils():
 
 class InputUtils():
 
+    @staticmethod
+    def IsValidPageNo(message, TicketCnt, err_msg) -> int:
+        #Find Max No of Pages Possible and 
+        MaxPage = math.ceil(TicketCnt/25)
+        is_valid = False
+        while not is_valid:
+            try:
+                input_ = int(input(message))
+            except ValueError as e:
+                print(e) 
+            else:
+                if 1<= input_ <=MaxPage:
+                    is_valid = True
+                else:
+                    print(err_msg)
+        return input_
+
     # @Method: Validate Input and ask for Input untill its valid
     @staticmethod
     def ValidateInput(Displayoptions: List[int], prompt: str, err_msg: str) -> int:
@@ -50,10 +68,6 @@ class InputUtils():
     # @Method: Validate Ticket ID
     @staticmethod
     def IsValidID(message: str) -> int:
-        """ Prompts the user for a valid integer. 
-        :param message: the prompting message that is displayed to the user.
-        :return: the integer selected by the user.
-        """
         is_valid = False
         while not is_valid:
             try:

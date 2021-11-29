@@ -51,6 +51,21 @@ class TestValidationMethods(TestCase):
         with patch('builtins.input', side_effect=mock_input):
             result = InputUtils.IsValidID("Mocking an input: ")
             self.assertEqual(9, result)
+    
+    def testIsValidPageNo(self):
+
+        
+        mock_input = ["y", "7","3"]
+        err = "Please select a valid Page No"
+        with patch('builtins.input', side_effect=mock_input):
+            result = InputUtils.IsValidPageNo("Mocking an input: ",100,err)
+            self.assertEqual(3, result)
+
+        
+        mock_input = ["4.4", "9"]
+        with patch('builtins.input', side_effect=mock_input):
+            result = InputUtils.IsValidPageNo("Mocking an input: ",1000,err)
+            self.assertEqual(9, result)
 
 if __name__ == "__main__":
     unittest.main(buffer=True)
